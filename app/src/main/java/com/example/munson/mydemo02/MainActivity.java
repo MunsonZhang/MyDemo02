@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private PictureLoader mPictureLoader;
     private ArrayList<Girl> mGirls;
     private int mPage;
+    private GirlTask mGirlTask;
 
 
     @Override
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initData() {
         mGirls = new ArrayList<Girl>();
-        new GirlTask(mPage).execute();
     }
 
     @Override
@@ -62,7 +62,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             case R.id.btn_refresh:
                 mPage++;
-                new GirlTask(mPage).execute();
+                mGirlTask = new GirlTask(mPage);
+                mGirlTask.execute();
                 curPos = 0;
                 break;
         }
@@ -86,6 +87,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(girls);
             mGirls.clear();
             mGirls.addAll(girls);
+            page ++;
         }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            mGirlTask = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mGirlTask.cancel(true);
     }
 }
