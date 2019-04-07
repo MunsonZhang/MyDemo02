@@ -33,7 +33,7 @@ public class GirlCompress {
         return BitmapFactory.decodeResource(res, resId, options);
     }
 
-    public Bitmap decodeBitmapFileDescriptor(FileDescriptor descriptor, int resId, int reqWidth, int reqHeight){
+    public Bitmap decodeBitmapFileDescriptor(FileDescriptor descriptor, int reqWidth, int reqHeight){
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeFileDescriptor(descriptor, null, options);

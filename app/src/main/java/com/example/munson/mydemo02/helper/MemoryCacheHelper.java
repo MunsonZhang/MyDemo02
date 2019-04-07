@@ -2,6 +2,7 @@ package com.example.munson.mydemo02.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.util.LruCache;
 
 public class MemoryCacheHelper {
@@ -22,6 +23,19 @@ public class MemoryCacheHelper {
         };
     }
 
-    public LruCache<String, Bitmap> get
+    public LruCache<String, Bitmap> getMemoryCache(){
+        return mMemoryCache;
+    }
+
+    public Bitmap getBitmapFromMemoryCache(String key){
+        Log.d(TAG,"加载内存里的数据");
+        return  mMemoryCache.get(key);
+    }
+
+    public void addBitmapToMemoryCache(String key, Bitmap bitmap){
+        if (null != getBitmapFromMemoryCache(key)){
+            mMemoryCache.put(key, bitmap);
+        }
+    }
 
 }

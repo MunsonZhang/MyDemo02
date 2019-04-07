@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.example.munson.mydemo02.api.GirlsApi;
 import com.example.munson.mydemo02.bean.Girl;
+import com.example.munson.mydemo02.common.GirlLoader;
 import com.example.munson.mydemo02.ui.PictureLoader;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<Girl> mGirls;
     private int mPage;
     private GirlTask mGirlTask;
+    private GirlLoader mGirlLoader;
 
 
     @Override
@@ -59,9 +61,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         curPos = 0;
                     }
                     mPictureLoader.load(mImg, mGirls.get(curPos).getUrl());
+                    mGirlLoader.bindBitmap(mGirls.get(curPos).getUrl(), mImg, 400,400);
+                    curPos++;
                 }
+                break;
             case R.id.btn_refresh:
-                mPage++;
                 mGirlTask = new GirlTask(mPage);
                 mGirlTask.execute();
                 curPos = 0;
