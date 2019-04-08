@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mGirlsApi = new GirlsApi();
         mPictureLoader = new PictureLoader();
+        mGirlLoader = GirlLoader.getInstance(MainActivity.this);
         initData();
         initUI();
     }
@@ -60,13 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(curPos > 9){
                         curPos = 0;
                     }
-                    mPictureLoader.load(mImg, mGirls.get(curPos).getUrl());
+//                    mPictureLoader.load(mImg, mGirls.get(curPos).getUrl());
                     mGirlLoader.bindBitmap(mGirls.get(curPos).getUrl(), mImg, 400,400);
                     curPos++;
                 }
                 break;
             case R.id.btn_refresh:
-                mGirlTask = new GirlTask(mPage);
+                mGirlTask = new GirlTask();
                 mGirlTask.execute();
                 curPos = 0;
                 break;
@@ -75,10 +76,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private class GirlTask extends AsyncTask<Void, Void, ArrayList<Girl>> {
 
-        private int page;
+        public GirlTask() {
 
-        public GirlTask(int page) {
-            this.page = page;
         }
 
         @Override
@@ -91,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             super.onPostExecute(girls);
             mGirls.clear();
             mGirls.addAll(girls);
-            page ++;
+            mPage ++;
         }
 
         @Override
@@ -104,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mGirlTask.cancel(true);
+        if(mGirlTask != null){
+            mGirlTask.cancel(true);
+        }
     }
 }

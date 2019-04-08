@@ -45,7 +45,7 @@ public class PictureLoader {
                     InputStream in = conn.getInputStream();
                     ByteArrayOutputStream out = new ByteArrayOutputStream();
                     byte[] bytes = new byte[1024];
-                    int length = -1;
+                    int length;
                     while ((length = in.read(bytes)) != -1){
                         out.write(bytes, 0, length);
                     }
