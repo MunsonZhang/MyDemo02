@@ -18,14 +18,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ArrayList<String> mUrls;
     private Button mNext;
-    private Button mRefresh;
+    private Button mNextBatch;
     private ImageView mImg;
-    private int curPos;
+    private int curPos = 0;
 
     private GirlsApi mGirlsApi;
     private PictureLoader mPictureLoader;
     private ArrayList<Girl> mGirls;
-    private int mPage;
+    private int mPage = 1;
     private GirlTask mGirlTask;
     private GirlLoader mGirlLoader;
 
@@ -43,10 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initUI() {
         mNext = (Button)findViewById(R.id.btn_show);
-        mRefresh = (Button)findViewById(R.id.btn_refresh);
+        mNextBatch = (Button)findViewById(R.id.btn_refresh);
         mImg = (ImageView) findViewById(R.id.img_show);
         mNext.setOnClickListener(this);
-        mRefresh.setOnClickListener(this);
+        mNextBatch.setOnClickListener(this);
     }
 
     private void initData() {

@@ -62,9 +62,9 @@ public class NetworkHelper {
         HttpURLConnection conn = null;
         try {
             URL url = new URL(picUrl);
+            conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setReadTimeout(10000);
-            conn = (HttpURLConnection) url.openConnection();
             if(conn.getResponseCode() == 200){
                 in = conn.getInputStream();
                 out = new ByteArrayOutputStream();
